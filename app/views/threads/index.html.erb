@@ -1,0 +1,19 @@
+
+<%= link_to( "<新增>", :action => "new") %>
+<%@localthread.each do  |t|%>
+<%if !t.nil?%>
+<br>
+
+ <td>
+<%=@i%><%=@i%><%=t%>
+<%= link_to( "<開始>", :action => "start", :id => t , :order => @i) %>
+
+<%= link_to( "<暫停>", :action => "stop", :id => t ,:order =>@i) %>
+<%= link_to( "<刪除>", :action => "delete", :id => t) %> 
+</td>
+<% @i = @i + 1%>
+</br>
+<%end%>
+<%end%>
+
+<%=@me%>
