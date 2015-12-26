@@ -1,19 +1,31 @@
-
+  <%= flash[:notice] %>
 <%= link_to( "<新增>", :action => "new") %>
+
 <%@localthread.each do  |t|%>
-<%if !t.nil?%>
-<br>
 
- <td>
-<%=@i%><%=@i%><%=t%>
-<%= link_to( "<開始>", :action => "start", :id => t , :order => @i) %>
+    <%if !t.nil?   %>
+        
+        
+              <%if @status[@i]!=-1   %>
+                    <br>  
+                    <td>
+                    <%=t%>
+                    <%if @status[@i]!=0   %>
+                        <%= link_to( "<開始>", :action => "start", :id => t , :order => @i) %>
+                    <%end%>  
+                    
+                    <%if @status[@i]!=1   %>
+                    <%= link_to( "<暫停>", :action => "stop", :id => t ,:order =>@i) %>
+                    <%end%> 
+                    <%= link_to( "<刪除>", :action => "delete", :id => t ,:order =>@i) %> 
+                    </td>
+                    </br>
+              <%end%>  
+        <% @i = @i + 1%>
+    <%end%>
 
-<%= link_to( "<暫停>", :action => "stop", :id => t ,:order =>@i) %>
-<%= link_to( "<刪除>", :action => "delete", :id => t) %> 
-</td>
-<% @i = @i + 1%>
-</br>
+    
 <%end%>
-<%end%>
-
+ <br> 
 <%=@me%>
+  </br>
