@@ -121,7 +121,7 @@ class ThreadsController < ApplicationController
                     end
                     #r = @@thread
                     
-                    #p "I'm "+ localorder.to_s 
+                    p "I'm "+ localorder.to_s 
                     
                     sleep 3
                 end
@@ -146,6 +146,7 @@ class ThreadsController < ApplicationController
             if u.eql? params[:id]
                 th.exit
                  @@stopflag[params[:order].to_i] = -1
+                 Bgjob.find_by(address: params[:id]).destroy
             end
             
              
