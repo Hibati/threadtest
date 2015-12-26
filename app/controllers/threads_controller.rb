@@ -26,10 +26,12 @@ class ThreadsController < ApplicationController
         redirect_to action: 'index'
     end
     def stop
-         
-        @@stopflag[params[:order].to_i] = 1
-        Bgjob.find_by(address: params[:id]).update(status: 1)
-        
+        if @@stopflag[params[:order].to_i] ==0
+            @@stopflag[params[:order].to_i] = 1
+            if startob=Bgjob.find_by(address: params[:id])
+                           startob.update(status: 1)
+            end
+        end
         redirect_to action: 'index' 
     end
     
@@ -42,10 +44,12 @@ class ThreadsController < ApplicationController
                 
                
                # user.update(name: 'Dave')
-                if th.status
+                if th.status ==1
                     # user = Bgjob.find_by(id: 3)
                     @@stopflag[params[:order].to_i] = 0
-                   Bgjob.find_by(address: params[:id]).update(status: 0)
+                   if startob=Bgjob.find_by(address: params[:id])
+                       startob.update(status: 0)
+                   end
                     th.wakeup
                 end
             end
@@ -146,7 +150,9 @@ class ThreadsController < ApplicationController
             if u.eql? params[:id]
                 th.exit
                  @@stopflag[params[:order].to_i] = -1
-                 Bgjob.find_by(address: params[:id]).destroy
+                 if(destroyob=Bgjob.find_by(address: params[:id]))
+                    destroyob.destroy
+                 end
             end
             
              
