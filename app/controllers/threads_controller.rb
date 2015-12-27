@@ -44,7 +44,7 @@ class ThreadsController < ApplicationController
                 
                
                # user.update(name: 'Dave')
-                if th.status ==1
+                if th.status.eql? "sleep"
                     # user = Bgjob.find_by(id: 3)
                     @@stopflag[params[:order].to_i] = 0
                    if startob=Bgjob.find_by(address: params[:id])
@@ -84,10 +84,7 @@ class ThreadsController < ApplicationController
         
     end
     
-    def startth
-        
-      
-    end
+ 
     
     def mytest
         
