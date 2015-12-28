@@ -1,11 +1,17 @@
-  <%= flash[:notice] %>
-<%= link_to( "<新增>", :action => "new") %>
-
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+</head>
+ 
+ 
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+ 
+<%= button_to "新增", {  :controller => "threads" , :action => "new" },:method => "get", :class=>"btn btn-primary btn-lg"  %>
 <%@localthread.each do  |t|%>
 
     <%if !t.nil?   %>
         
-        
+                <ol>
               <%if @status[@i]!=-1   %>
                     <br>  
                     <td>
@@ -20,12 +26,52 @@
                     <%= link_to( "<刪除>", :action => "delete", :id => t ,:order =>@i) %> 
                     </td>
                     </br>
-              <%end%>  
+              <%end%> 
+              </ol>
         <% @i = @i + 1%>
     <%end%>
 
     
 <%end%>
- <br> 
-<%=@me%>
-  </br>
+
+<table class="table table-inverse">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Thread Ids</th>
+      <th>Statuses</th>
+    </tr>
+  </thead>
+  <tbody>
+      
+<% c=0%>      
+<%@me.each do |r|%>
+
+        <tr>
+          <th scope="row"><%= c  %></th>
+            <td>
+                <% temp = r.to_s.index(":")%>
+                  <%=r.to_s[temp+1,r.to_s.length-10]%>
+            </td>
+          <td>
+               
+              <% if r.status%>
+                  <%=r.status%>
+              <%else%>
+                  dead
+              <%end%>
+          </td>
+          
+        </tr>
+        <% c=1+c%> 
+<%end%>
+     
+   
+  </tbody>
+</table>
+
+
+
+
+
+
